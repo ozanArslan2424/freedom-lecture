@@ -81,7 +81,7 @@ export const Universe = ({ children, boundaryValues, className, universeBGShown,
       <Person />
       <div
         className={cn(
-          "absolute top-1/2 left-1/2 -z-10 w-[1000vw] h-[1000vh] transition-all duration-75w",
+          "absolute top-1/2 left-1/2 -z-10 w-[1000vw] h-[1000vh] transition-all duration-75w bg-background",
           universeBGShown && "circles"
         )}
         style={{

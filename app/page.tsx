@@ -52,8 +52,12 @@ export default function Home() {
 
   return (
     <div className="h-screen w-full flex items-center justify-center">
+      <div className="h-screen w-full absolute -z-10 bg"></div>
       <div className="custom-grid w-[75vw] justify-center items-center">
-        <Toggle onClick={() => setUniverseBGShown(!universeBGShown)} variant="outline" className="button1">
+        <Toggle
+          onClick={() => setUniverseBGShown(!universeBGShown)}
+          className="button1 bg-background border hover:text-foreground"
+        >
           Arka Planı {universeBGShown ? "Gizle" : "Göster"}
         </Toggle>
 
@@ -61,7 +65,10 @@ export default function Home() {
 
         {/* <h1 className="text-2xl font-bold tracking-tight col-start-3 col-end-5 mx-auto">Davranış Özgürlüğü</h1> */}
 
-        <Toggle onClick={() => setShowLecture(!showLecture)} variant="outline" className="button5">
+        <Toggle
+          onClick={() => setShowLecture(!showLecture)}
+          className="button5 bg-background border hover:text-foreground"
+        >
           Eğitimi {showLecture ? "Gizle" : "Göster"}
         </Toggle>
 
