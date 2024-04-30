@@ -1,9 +1,9 @@
 "use client";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { BoundaryProps } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { BoundaryProps } from "./boundary";
 import { Button } from "./ui/button";
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from "./ui/dialog";
 import { Input } from "./ui/input";
@@ -53,17 +53,13 @@ export const AddBoundary = ({ changeTopBoundary }: Props) => {
     };
 
     changeTopBoundary(boundary);
-    localStorage.setItem("boundary", JSON.stringify(boundary));
-    console.log(boundary);
     form.reset();
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default" className="button2">
-          Yeni Sınır Ekle
-        </Button>
+        <Button variant="default">Yeni Sınır Ekle</Button>
       </DialogTrigger>
       <DialogContent className="w-max p-6 z-[99999]">
         <Form {...form}>

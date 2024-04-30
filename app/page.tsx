@@ -1,93 +1,68 @@
 "use client";
 import { AddBoundary } from "@/components/add-boundary";
-import { Boundary, BoundaryProps, TopBoundary } from "@/components/boundary";
+import { Boundary } from "@/components/boundary";
+import { Lecture } from "@/components/lecture";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
 import { Universe } from "@/components/universe";
-
-import { useEffect, useState } from "react";
+import { BoundaryProps } from "@/lib/types";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
-  const [boundaries, setBoundaries] = useState<BoundaryProps[]>([]);
-  const [boundaryValues, setBoundaryValues] = useState<BoundaryProps | null>(null);
-  const [universeBGShown, setUniverseBGShown] = useState(false);
-  const [showLecture, setShowLecture] = useState(false);
+  const [boundaryList, setBoundaryList] = useState<BoundaryProps[]>([]);
+  const [topBoundary, setTopBoundary] = useState<BoundaryProps | null>(null);
 
-  useEffect(() => {
-    let localItem = localStorage.getItem("boundary");
-    if (localItem === "undefined" || localItem === undefined) {
-      localStorage.clear();
-    }
-    if (localItem === null) {
-      return;
-    } else {
-      setBoundaryValues(JSON.parse(localItem));
-    }
-  }, []);
-
-  function handleStorageChange() {
-    let boundary = localStorage.getItem("boundary");
-    if (boundary === null) return;
-    setBoundaryValues(JSON.parse(boundary!));
-  }
+  const [bgShown, setBgShown] = useState(false);
+  const [lectureShown, setLectureShown] = useState(false);
 
   function changeTopBoundary(boundary: BoundaryProps) {
-    setBoundaries((prev) => [...prev, boundary]);
-    setBoundaryValues(boundary);
+    setTopBoundary(boundary);
+    setBoundaryList((prev) => [...prev, boundary]);
   }
 
-  useEffect(() => {
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-
   function handleReset() {
-    localStorage.clear();
-    setBoundaryValues(null);
-    setBoundaries([]);
+    setTopBoundary(null);
+    setBoundaryList([]);
   }
 
   return (
-    <div className="h-screen w-full flex items-center justify-center">
-      <div className="h-screen w-full absolute -z-10 bg"></div>
-      <div className="custom-grid w-[75vw] justify-center items-center">
-        <Toggle
-          onClick={() => setUniverseBGShown(!universeBGShown)}
-          className="button1 bg-background border hover:text-foreground"
+    <div className="h-screen w-full page-grid bg pb-8 pt-4 px-16">
+      {/* <div className="h-screen w-full absolute -z-10 bg"></div> */}
+      <header className="header">
+        <h1 className="text-5xl font-bold text-white">Özgürlük Sunum Aracı</h1>
+        <Link
+          href="https://github.com/ozanArslan2424"
+          className="text-white px-3 py-1 mr-16 h-max text-2xl font-semibold"
         >
-          Arka Planı {universeBGShown ? "Gizle" : "Göster"}
+          Ozan Arslan
+        </Link>
+        <div className="aspect-square flex flex-col gap-2 items-center size-14 absolute right-16 top-4 hover:pt-12 transition-all z-10 hover:size-80 group">
+          <Image src={"/foto.jpeg"} alt="Ozan Arslan" width={320} height={320} className="aspect-square rounded-full" />
+        </div>
+      </header>
+      <div className="buttons">
+        <Toggle onClick={() => setBgShown(!bgShown)} className="bg-background border hover:text-foreground">
+          Arka Planı {bgShown ? "Gizle" : "Göster"}
         </Toggle>
-
+        <Toggle onClick={() => setLectureShown(!lectureShown)} className="bg-background border hover:text-foreground">
+          Eğitimi {lectureShown ? "Gizle" : "Göster"}
+        </Toggle>
+        <div></div>
+        <div></div>
         <AddBoundary changeTopBoundary={changeTopBoundary} />
-
-        {/* <h1 className="text-2xl font-bold tracking-tight col-start-3 col-end-5 mx-auto">Davranış Özgürlüğü</h1> */}
-
-        <Toggle
-          onClick={() => setShowLecture(!showLecture)}
-          className="button5 bg-background border hover:text-foreground"
-        >
-          Eğitimi {showLecture ? "Gizle" : "Göster"}
-        </Toggle>
-
-        <Button variant="destructive" className="button6" onClick={handleReset}>
+        <Button variant="destructive" onClick={handleReset}>
           Sıfırla
         </Button>
-
-        <Universe
-          showLecture={showLecture}
-          universeBGShown={universeBGShown}
-          className="universe"
-          boundaryValues={boundaryValues}
-        >
-          {boundaryValues && <TopBoundary color={boundaryValues.color} radius={boundaryValues.radius} />}
-          {boundaries.map((boundary, index) => (
-            <Boundary key={index} name={boundary.name} color={boundary.color} radius={boundary.radius} />
-          ))}
-        </Universe>
       </div>
+
+      <Universe bg={bgShown} lecture={lectureShown} topBoundary={topBoundary}>
+        {boundaryList.map((boundary, index) => (
+          <Boundary key={index} zIndex={index} name={boundary.name} color={boundary.color} radius={boundary.radius} />
+        ))}
+      </Universe>
+      {lectureShown && <Lecture />}
     </div>
   );
 }

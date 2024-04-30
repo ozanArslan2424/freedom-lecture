@@ -49,36 +49,6 @@
   }
 }
 
-.custom-grid {
-  height: 95vh;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: max-content auto max-content;
-  grid-column-gap: 0.5rem;
-  grid-row-gap: 0.5rem;
-}
-.button1 {
-  grid-area: 1 / 1 / 2 / 2;
-}
-.button2 {
-  grid-area: 1 / 2 / 2 / 3;
-}
-.button3 {
-  grid-area: 1 / 3 / 2 / 4;
-}
-.button4 {
-  grid-area: 1 / 4 / 2 / 5;
-}
-.button5 {
-  grid-area: 1 / 5 / 2 / 6;
-}
-.button6 {
-  grid-area: 1 / 6 / 2 / 7;
-}
-.universe {
-  grid-area: 2 / 1 / 3 / 7;
-}
-
 /* .bg {
   background-color: #ffffff;
   opacity: 0.2;
@@ -98,13 +68,6 @@
   }
 }
 
-.banner-container::before {
-  background-image: url(/images/ColourWheel.png);
-  background-position: center;
-  background-size: contain;
-  animation: rotate-bg 10s linear infinite;
-}
-
 .bg {
   background-color: #2e2e2e;
   opacity: 1;
@@ -119,4 +82,48 @@
   background-image: radial-gradient(circle at center center, #dbdbdb, #ffffff),
     repeating-radial-gradient(circle at center center, #dbdbdb, #dbdbdb, 16px, transparent 32px, transparent 16px);
   background-blend-mode: multiply;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: max-content max-content 1fr;
+  gap: 0.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+  padding: 0.5rem;
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+  grid-area: 2 / 1 / 3 / 2;
+}
+
+.universe {
+  grid-area: 3 / 1 / 4 / 2;
+}
+
+.lecture-grid {
+  display: grid;
+  grid-template-columns: 4rem 1fr 4rem;
+  gap: 0.5rem;
+}
+
+.back-btn {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.lecture {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.next-btn {
+  grid-area: 1 / 3 / 2 / 4;
 }

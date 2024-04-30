@@ -1,27 +1,25 @@
 "use client";
+import { BoundaryProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
-import { BoundaryProps } from "./boundary";
-import { Lecture } from "./lecture";
+import { useEffect, useState } from "react";
 import { Person } from "./person";
 
 type Props = {
-  boundaryValues?: BoundaryProps | null;
-  children: React.ReactNode;
-  className?: string;
-  universeBGShown?: boolean;
-  showLecture?: boolean;
+  children?: React.ReactNode;
+  topBoundary?: BoundaryProps | null;
+  bg: boolean;
+  lecture: boolean;
 };
 
-export const Universe = ({ children, boundaryValues, className, universeBGShown, showLecture }: Props) => {
+export const Universe = ({ children, topBoundary, bg, lecture }: Props) => {
   const [position, setPosition] = useState({ top: 0, left: 0 });
 
   const movement = 50;
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (boundaryValues) {
-        const boundaryRadius = boundaryValues.radius * 2;
+      if (topBoundary) {
+        const boundaryRadius = topBoundary.radius * 2;
         let newTop = position.top;
         let newLeft = position.left;
         switch (event.key) {
@@ -44,7 +42,7 @@ export const Universe = ({ children, boundaryValues, className, universeBGShown,
         if (newTop ** 2 + newLeft ** 2 <= boundaryRadius ** 2) {
           setPosition({ top: newTop, left: newLeft });
         }
-      } else if (!boundaryValues) {
+      } else if (!topBoundary) {
         switch (event.key) {
           case "ArrowUp":
             setPosition((pos) => ({ ...pos, top: pos.top + movement }));
@@ -69,30 +67,21 @@ export const Universe = ({ children, boundaryValues, className, universeBGShown,
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [position.top, position.left, movement, boundaryValues]);
+  }, [position.top, position.left, movement, topBoundary]);
 
   return (
-    <div
-      className={cn(
-        "relative rounded-lg border overflow-hidden bg-transparent text-card-foreground shadow-sm p-6 w-full h-full",
-        className
-      )}
-    >
+    <div className="universe relative rounded-lg shadow-sm border overflow-hidden">
       <Person />
       <div
-        className={cn(
-          "absolute top-1/2 left-1/2 -z-10 w-[1000vw] h-[1000vh] transition-all duration-75w bg-background",
-          universeBGShown && "circles"
-        )}
+        className={cn("w-[1000vw] h-[1000vh] transition-all duration-75w relative", bg ? "circles" : "bg-background")}
         style={{
           top: `${position.top}px`,
           left: `${position.left}px`,
-          transform: "translate(-46.25%, -45.5%)",
+          transform: "translate(-45.38%, -45.8%)",
         }}
       >
         {children}
       </div>
-      {showLecture && <Lecture />}
     </div>
   );
 };

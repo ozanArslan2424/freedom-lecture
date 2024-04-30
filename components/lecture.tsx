@@ -50,17 +50,32 @@ export const Lecture = () => {
   const [currentId, setCurrentId] = useState(1);
 
   return (
-    <div className="flex items-center gap-2">
-      <Button size="big" variant="outline" className="w-48 h-24" onClick={() => setCurrentId((id) => id - 1)}>
-        <StepBackIcon size={24} />
-      </Button>
-      <div className="p-6 rounded-lg border bg-card text-card-foreground shadow-sm h-max w-full">
+    <div className="lecture-grid items-center gap-2 absolute w-1/2 bottom-12 left-1/2 translate-x-[-50%]">
+      {currentId >= 2 && (
+        <Button
+          size="big"
+          variant="secondary"
+          className="size-16 aspect-square back-btn"
+          onClick={() => setCurrentId((id) => id - 1)}
+        >
+          <StepBackIcon size={24} />
+        </Button>
+      )}
+
+      <div className="p-6 rounded-lg border bg-card text-card-foreground shadow-sm h-max w-full lecture">
         <p className="text-lg">{LECTURE_CONTENT.find((content) => content.id === currentId)?.content}</p>
       </div>
 
-      <Button size="big" variant="outline" className="w-48 h-24" onClick={() => setCurrentId((id) => id + 1)}>
-        <StepForwardIcon size={24} />
-      </Button>
+      {currentId < LECTURE_CONTENT.length && (
+        <Button
+          size="big"
+          variant="secondary"
+          className="size-16 aspect-square next-btn"
+          onClick={() => setCurrentId((id) => id + 1)}
+        >
+          <StepForwardIcon size={24} />
+        </Button>
+      )}
     </div>
   );
 };
