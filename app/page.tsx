@@ -31,10 +31,10 @@ export default function Home() {
     <div className="h-screen w-full page-grid bg pb-8 pt-4 px-16">
       {/* <div className="h-screen w-full absolute -z-10 bg"></div> */}
       <header className="header">
-        <h1 className="text-5xl font-bold text-white">Özgürlük Sunum Aracı</h1>
+        <h1 className="text-5xl font-bold text-neutral-100">Özgürlük Sunum Aracı</h1>
         <Link
           href="https://github.com/ozanArslan2424"
-          className="text-white px-3 py-1 mr-16 h-max text-2xl font-semibold"
+          className="text-neutral-100 px-3 py-1 mr-16 h-max text-2xl font-semibold"
         >
           Ozan Arslan
         </Link>
