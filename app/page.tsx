@@ -29,9 +29,8 @@ export default function Home() {
 
   return (
     <div className="h-screen w-full page-grid bg pb-8 pt-4 px-16">
-      {/* <div className="h-screen w-full absolute -z-10 bg"></div> */}
       <header className="header">
-        <h1 className="text-5xl font-bold text-neutral-100">Özgürlük Sunum Aracı</h1>
+        <h1 className="text-4xl font-bold text-neutral-100">Özgürlük Sunum Aracı</h1>
         <Link
           href="https://github.com/ozanArslan2424"
           className="text-neutral-100 px-3 py-1 mr-16 h-max text-2xl font-semibold"
@@ -39,7 +38,13 @@ export default function Home() {
           Ozan Arslan
         </Link>
         <div className="aspect-square flex flex-col gap-2 items-center size-14 absolute right-16 top-4 hover:pt-12 transition-all z-10 hover:size-80 group">
-          <Image src={"/foto.jpeg"} alt="Ozan Arslan" width={320} height={320} className="aspect-square rounded-full" />
+          <Image
+            src={"https://github.com/ozanArslan2424.png"}
+            alt="Ozan Arslan"
+            width={320}
+            height={320}
+            className="aspect-square rounded-full"
+          />
         </div>
       </header>
       <div className="buttons">
